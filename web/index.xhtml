@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <style>
+            .ajax-status{
+                width: 15px;
+                height: 15px;
+                right: 10px;
+                top: 60px;
+                position: fixed;
+            }
+        </style>
+        <script>
+            
+        </script>
+    </h:head>
+    <h:body>
+        <h:form id="frm">
+            <p:ajaxStatus styleClass="ajax-status" 
+                          onstart="$('input').css('background-color','grey')"
+                          oncomplete="$('input').css('background-color','')">
+                <f:facet name="start">
+                    <h:graphicImage library="imagens" name="ajax-loader.gif" width="15px" />
+                    
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+            <p:messages autoUpdate="true" />
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Login" for="login" />
+                <h:panelGroup>
+                    <p:inputText id="login" value="#{cadastroUsuarioBean.login}" required="true" />
+                    <p:commandButton value="Verificar disp." action="#{cadastroUsuarioBean.verDisp()}"
+                                     process="login @this" />
+                    
+                </h:panelGroup>
+                
+                <p:outputLabel value="Nome" for="nome" />
+                <p:inputText id="nome" value="#{cadastroUsuarioBean.nome}" required="true"/>
+                
+            </p:panelGrid>
+            
+            <p:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.cadastrar()}"/>
+            
+        </h:form>
+        
+        <h:form id="frm2">
+            <p:messages autoUpdate="true" />
+            <p:panelGrid columns="2">
+                <p:outputLabel value="Login" for="login2" />
+                
+                <p:inputText id="login2" value="#{cadastroUsuarioBean.login}" required="true">
+                    <p:ajax listener="#{cadastroUsuarioBean.verDisp()}" event="change" process="@this"/>
+                </p:inputText>
+
+                <p:outputLabel value="Nome" for="nome2" />
+                <p:inputText id="nome2" value="#{cadastroUsuarioBean.nome}" required="true" />
+                
+            </p:panelGrid>
+            
+            <p:commandButton value="Cadastrar" action="#{cadastroUsuarioBean.cadastrar()}"/>
+            
+        </h:form>
+    </h:body>
+</html>
+
